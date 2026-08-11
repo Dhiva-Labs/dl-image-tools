@@ -63,6 +63,44 @@
     // Script tags copied via innerHTML are inert by design; popup.js is
     // loaded for real here, once, with correct module-relative paths.
     await import('../src/popup/popup.js');
+    await autoDrive();
+  }
+
+  // ?shot=<tab>&files=a.jpg,b.png&theme=dark — auto-imports fixtures and opens
+  // a tab, so headless Chrome can capture store screenshots deterministically.
+  async function autoDrive() {
+    const params = new URLSearchParams(window.location.search);
+    const theme = params.get('theme');
+    if (theme) document.documentElement.dataset.theme = theme;
+    const files = params.get('files');
+    if (!files) return;
+    const dt = new DataTransfer();
+    for (const name of files.split(',')) {
+      const blob = await (await fetch(`fixtures/${name}`)).blob();
+      dt.items.add(new File([blob], name, { type: blob.type }));
+    }
+    document.querySelector('.drop-zone')?.dispatchEvent(
+      new DragEvent('drop', { bubbles: true, cancelable: true, dataTransfer: dt })
+    );
+    await new Promise((r) => setTimeout(r, 1200));
+    const shot = params.get('shot');
+    if (shot && shot !== 'import') {
+      const tab = [...document.querySelectorAll('[role="tab"]')]
+        .find((t) => t.textContent.trim().toLowerCase().startsWith(shot));
+      tab?.click();
+      await new Promise((r) => setTimeout(r, 1500));
+      if (shot === 'batch') {
+        const panel = document.querySelector('[role="tabpanel"]:not([hidden])');
+        [...panel.querySelectorAll('button')].find((b) => /process all/i.test(b.textContent))?.click();
+        for (let i = 0; i < 60; i++) {
+          await new Promise((r) => setTimeout(r, 500));
+          const dl = [...panel.querySelectorAll('button')].find((b) => /download all/i.test(b.textContent));
+          if (dl && !dl.disabled) break;
+        }
+      }
+    }
+    if (theme) document.documentElement.dataset.theme = theme;
+    document.title = 'shot-ready';
   }
 
   boot().catch((err) => {

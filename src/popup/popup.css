@@ -1,3 +1,8 @@
+
+/* The hidden attribute must always win over component display rules. */
+[hidden] {
+  display: none !important;
+}
 /* src/popup/popup.css
    DL Image Tools — DhivaLabs. Indigo/violet brand, light + dark palettes
    via CSS custom properties keyed off html[data-theme]. Body renders as a
@@ -451,9 +456,18 @@ textarea.base64-input {
   position: relative;
 }
 
+.panel[hidden] {
+  display: none;
+}
+
 html.layout-tab .panel {
   flex-direction: row;
   align-items: flex-start;
+}
+
+html.layout-tab .panel-batch {
+  flex-direction: column;
+  align-items: stretch;
 }
 
 .panel.is-busy {

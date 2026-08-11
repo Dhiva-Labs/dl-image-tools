@@ -56,6 +56,17 @@ extension pass; items that require `chrome.*` at runtime are listed at the botto
 | Batch tab only appears with >1 file | Pass |
 | popup.html standalone loads with zero console errors | Pass |
 
+## Defects found and fixed during this pass
+
+1. **All tool panels rendered stacked** — component CSS (`display: flex`) overrode the
+   `hidden` attribute on inactive tab panels, idle spinners, and the crop-result
+   placeholder. Fixed with a global `[hidden] { display: none !important; }` rule in
+   `popup.css`; re-verified (exactly one visible panel, zero idle spinners).
+2. **Batch panel squeezed in tab layout** — the tab-mode row layout crushed the batch
+   controls into unreadable widths. Fixed by keeping `panel-batch` column-oriented.
+3. **Crop/rotate/flip closed caller-owned ImageBitmaps** — fixed to close only
+   bitmaps the tool itself created.
+
 ## Not verified in this pass (requires installed extension in Chrome)
 
 - Context menu items ("Download image", "Open in DL Image Tools") — code reviewed, needs a real right-click check after `chrome://extensions` → Load unpacked.
