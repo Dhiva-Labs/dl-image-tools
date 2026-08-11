@@ -1,0 +1,13 @@
+{
+  "name": "dl-image-tools",
+  "version": "1.0.0",
+  "description": "DL Image Tools - private, local image utilities for Chrome",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "test": "node --test tests/",
+    "build": "bash scripts/build.sh"
+  },
+  "author": "DhivaLabs",
+  "license": "MIT"
+}
