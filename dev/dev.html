@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DL Image Tools — Dev harness</title>
+<!--
+  Robust, iframe-free dev harness.
+
+  Why this approach: popup.html must stay the single source of truth for
+  markup (it is also the real MV3 popup page), and popup.js queries the
+  document by id/class at import time. An <iframe> would isolate popup.js
+  from this page's `window.chrome` shim, and hand-copying popup.html's body
+  into this file would drift out of sync over time.
+
+  Instead: load the chrome shim first (plain script, sets globalThis.chrome
+  before any tool/storage code runs), then fetch popup.html, parse it with
+  DOMParser, copy its <link rel="stylesheet"> tags and <body> markup into
+  this document, and only then dynamically import popup.js as a module.
+  popup.js finds the exact DOM it expects, already present, with a working
+  chrome stub underneath it.
+
+  Must be served over http (fetch of a local file needs a real origin):
+    python3 -m http.server        # from the repo root
+    open http://localhost:8000/dev/dev.html
+-->
+<script src="chrome-shim.js"></script>
+</head>
+<body>
+<div id="app-root">
+  <p style="font:14px/1.5 -apple-system,sans-serif;padding:24px;color:#6b7280;">
+    Loading DL Image Tools…
+  </p>
+</div>
+<script type="module">
+  const POPUP_URL = new URL('../src/popup/popup.html', window.location.href);
+
+  async function boot() {
+    const res = await fetch(POPUP_URL);
+    if (!res.ok) throw new Error(`Failed to fetch popup.html (${res.status})`);
+    const html = await res.text();
+    const parsed = new DOMParser().parseFromString(html, 'text/html');
+
+    // Copy stylesheets, resolved relative to popup.html's own directory.
+    parsed.querySelectorAll('link[rel="stylesheet"]').forEach((link) => {
+      const href = link.getAttribute('href');
+      if (!href) return;
+      const resolved = new URL(href, POPUP_URL);
+      const clone = document.createElement('link');
+      clone.rel = 'stylesheet';
+      clone.href = resolved.href;
+      document.head.appendChild(clone);
+    });
+
+    if (parsed.title) document.title = `${parsed.title} — Dev harness`;
+
+    const root = document.getElementById('app-root');
+    root.innerHTML = parsed.body.innerHTML;
+    // Mark this run as the standalone dev harness so popup.js can apply the
+    // wider "opened as a tab" layout by default.
+    document.body.dataset.devHarness = 'true';
+
+    // Script tags copied via innerHTML are inert by design; popup.js is
+    // loaded for real here, once, with correct module-relative paths.
+    await import('../src/popup/popup.js');
+  }
+
+  boot().catch((err) => {
+    document.getElementById('app-root').innerHTML =
+      '<div style="font:14px/1.6 -apple-system,sans-serif;padding:24px;max-width:520px;margin:40px auto;' +
+      'background:#fef2f2;border:1px solid #fecaca;border-radius:12px;color:#7f1d1d;">' +
+      '<strong>Dev harness failed to load.</strong><br>' +
+      'Serve this repo over http and open dev/dev.html from there, e.g.:<br>' +
+      '<code>python3 -m http.server</code> (from the repo root), then visit ' +
+      '<code>http://localhost:8000/dev/dev.html</code>.<br><br>' +
+      String((err && err.message) || err) +
+      '</div>';
+  });
+</script>
+</body>
+</html>

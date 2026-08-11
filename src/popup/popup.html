@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DL Image Tools</title>
+<link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="shell">
+    <header class="app-header">
+      <div class="brand">
+        <img id="app-icon" class="brand-icon" alt="" width="28" height="28" />
+        <div class="brand-text">
+          <span class="brand-title">DL Image Tools</span>
+          <span class="brand-wordmark">DhivaLabs</span>
+        </div>
+      </div>
+      <div class="theme-toggle" role="group" aria-label="Theme">
+        <button type="button" class="theme-btn" data-theme-choice="light" aria-label="Light theme" title="Light">
+          <span aria-hidden="true">☀️</span>
+        </button>
+        <button type="button" class="theme-btn" data-theme-choice="dark" aria-label="Dark theme" title="Dark">
+          <span aria-hidden="true">🌙</span>
+        </button>
+        <button type="button" class="theme-btn" data-theme-choice="system" aria-label="Match system theme" title="System">
+          <span aria-hidden="true">🖥️</span>
+        </button>
+      </div>
+    </header>
+
+    <main class="app-main" id="app-main">
+      <div id="message-bar-slot" class="message-bar-slot"></div>
+
+      <section id="import-screen" class="import-screen">
+        <div id="drop-zone" class="drop-zone" tabindex="0" role="button" aria-label="Drop an image here, or activate to choose a file">
+          <svg class="drop-icon" width="40" height="40" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <path d="M12 16V4M12 4l-4 4M12 4l4 4" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+          <p class="drop-title">Drop image here</p>
+          <p class="drop-sub">or paste with Ctrl+V</p>
+          <button type="button" id="choose-file-btn" class="btn btn-primary">Choose image</button>
+          <input type="file" id="file-input" multiple hidden />
+          <p class="drop-hint">Supports JPG, PNG, WebP, AVIF, GIF and BMP</p>
+        </div>
+      </section>
+
+      <section id="workspace" class="workspace" hidden>
+        <div id="file-strip" class="file-strip" hidden></div>
+        <div id="tab-bar" class="tab-bar" role="tablist" aria-label="Image tools"></div>
+        <div id="panel-host" class="panel-host"></div>
+        <div class="workspace-actions">
+          <button type="button" id="import-more-btn" class="btn btn-link">Import another image</button>
+        </div>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <p>Your images stay on your device.</p>
+    </footer>
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
+</html>
