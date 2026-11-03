@@ -59,10 +59,12 @@ fi
 
 echo "==> Creating zip archive"
 ZIP_NAME="${PKG_NAME}-v${VERSION}.zip"
+# The Web Store requires manifest.json at the zip root, so zip the staged
+# folder's contents rather than the folder itself.
+rm -f "${DIST_DIR}/${ZIP_NAME}"
 (
-  cd "${DIST_DIR}"
-  rm -f "${ZIP_NAME}"
-  zip -r -X "${ZIP_NAME}" "${PKG_NAME}" -x '*.DS_Store' >/dev/null
+  cd "${STAGE_DIR}"
+  zip -r -X "../${ZIP_NAME}" . -x '*.DS_Store' >/dev/null
 )
 
 ZIP_PATH="${DIST_DIR}/${ZIP_NAME}"

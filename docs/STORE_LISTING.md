@@ -20,38 +20,39 @@ _(93 characters — leaves headroom for future edits without exceeding the
 
 ## Detailed description
 
-```
-DL Image Tools is a fast, private image toolbox that runs entirely inside
-your browser. Fast. Private. No uploads.
+> **Rejected 2026-08-12 (Spam and Placement, ref "Yellow Argon"):** the
+> previous copy listed the resize presets by brand and resolution
+> ("Instagram, YouTube, Twitter/X, Facebook, LinkedIn, HD, Full HD, 4K"),
+> which the review treats as keyword stuffing. Never list platform names,
+> resolutions or other keyword runs here, and don't repeat the tagline.
 
-Every operation — compress, resize, convert, crop, rotate, flip, base64
-encode/decode, and metadata inspection — happens locally using your
-browser's own Canvas engine. Your images never touch a server, because
-DL Image Tools doesn't have one.
+```
+DL Image Tools is an image toolbox that runs entirely inside your browser.
+Every operation happens locally using Chrome's own Canvas engine, so your
+images never leave your computer. There is no server to send them to.
 
 FEATURES
-• Compress JPEG, PNG, WebP, and AVIF with an adjustable quality slider
-• Resize to exact dimensions, a percentage, or one of 8 built-in presets
-  (Instagram, YouTube, Twitter/X, Facebook, LinkedIn, HD, Full HD, 4K)
-• Convert between JPEG, PNG, WebP, and AVIF
-• Crop freeform or to a fixed aspect ratio (1:1, 16:9, 4:3, 3:2, 9:16)
+• Compress JPEG, PNG, WebP and AVIF images with an adjustable quality slider
+• Resize to exact pixel dimensions or a percentage, or pick a ready-made
+  preset for common social-post and screen sizes
+• Convert between JPEG, PNG, WebP and AVIF
+• Crop freely or to a fixed aspect ratio
 • Rotate and flip images
-• Encode images to base64 / data URIs, or decode them back
-• Inspect metadata: dimensions, file size, aspect ratio, megapixels, and
-  EXIF presence
-• Batch-process multiple images at once and download them individually or
-  as a single zip
-• Right-click any image on the web to download it or open it directly in
+• Encode images to base64 data URIs, or decode them back to image files
+• Inspect dimensions, file size, aspect ratio, megapixels and whether the
+  file carries EXIF data
+• Process several images at once and download them one by one or as a
+  single zip
+• Right-click any image on a web page to download it or open it in
   DL Image Tools
-• Light, dark, and system theme
+• Light, dark and system themes
 
-WHY LOCAL-ONLY MATTERS
-Most "online image tools" quietly upload your file to a server first. DL
-Image Tools never does. There's no account, no analytics, no ads, and no
-network requests carrying your image data — it's all Canvas/OffscreenCanvas
-processing, right in your tab. Fast. Private. No uploads.
+PRIVACY
+Many online image tools upload your file to a server before editing it.
+DL Image Tools never does. There is no account, no analytics and no ads,
+and the extension makes no network requests with your image data.
 
-Open source and built by DhivaLabs.
+DL Image Tools is open source and built by DhivaLabs.
 ```
 
 ## Category
@@ -68,16 +69,44 @@ for the target locale/category set)
 | `storage`     | Persists the user's theme preference (light/dark/system) locally via `chrome.storage.local` so it's remembered between sessions. No image data or personal information is stored. |
 | `downloads`   | Used to save processed images (and the right-click "Download image" action) to the user's Downloads folder via the standard Chrome download flow, instead of relying on manual anchor-click downloads. |
 
-No `host_permissions` are requested — the extension makes no network
-requests and does not need access to page content on arbitrary sites.
+No `host_permissions` are requested and the extension does not read page
+content. Its only network request is "Open in DL Image Tools", which fetches
+the image the user right-clicked from that image's own URL, the same way
+the page already loaded it. Nothing is ever uploaded.
+
+## Privacy tab answers
+
+**Single purpose description:**
+
+```
+Edit images locally in the browser: compress, resize, convert, crop, rotate, flip, base64-encode and inspect images the user opens, without uploading them anywhere.
+```
+
+**Remote code:** No, I am not using remote code. All JavaScript ships in
+the package; there are no external scripts, `eval` or `new Function`.
+
+**Data usage:** tick none of the data-type boxes (the extension collects no
+user data), then tick all three certifications:
+- I do not sell or transfer user data to third parties, outside of the
+  approved use cases
+- I do not use or transfer user data for purposes that are unrelated to my
+  item's single purpose
+- I do not use or transfer user data to determine creditworthiness or for
+  lending purposes
+
+**Privacy policy URL:**
+
+```
+https://github.com/Dhiva-Labs/dl-image-tools/blob/main/docs/PRIVACY.md
+```
 
 ## Screenshot shot list (5 shots, 1280x800 or 640x400)
 
 1. **Compress tab, before/after.** Popup opened as a tab with an image
    loaded on the Compress tool, quality slider mid-drag, showing the
    original vs. new file size comparison.
-2. **Resize tab with presets.** The Resize tool with the preset dropdown
-   open, showing the 8 social-media presets (Instagram, YouTube, etc.).
+2. **Resize tab with presets.** The Resize tool with width/height and the
+   preset dropdown. Keep the dropdown closed: no platform names in shots.
 3. **Crop tool in action.** The Crop tool with an active crop selection
    rectangle and aspect-ratio buttons (1:1, 16:9, 4:3...) visible.
 4. **Batch mode.** Multiple thumbnails loaded in the Batch tab mid-process,
