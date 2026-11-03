@@ -122,11 +122,15 @@ a tab pre-loaded with the clicked image's URL.
 | `storage`     | Persists your theme preference (light/dark/system) locally via `chrome.storage.local`. Never used for image data. |
 | `downloads`   | Lets "Download image" and the in-app download buttons save files to disk without an intermediate `<a>` click prompt. |
 
-No `host_permissions` are requested in v1 — DL Image Tools never talks to
-the network.
+No `host_permissions` are requested in v1. The only network request is
+"Open in DL Image Tools", which fetches the right-clicked image from its own
+URL. Your images are never uploaded.
 
 ## Known limitations
 
+- **"Open in DL Image Tools" needs the image's site to allow cross-origin
+  loading.** Most image hosts and CDNs do. When one doesn't, DL Image Tools
+  shows an error asking you to download the image and import it instead.
 - **AVIF encoding** depends on your Chrome build's codec support. If your
   browser can't encode AVIF, DL Image Tools automatically falls back to
   WebP output.
