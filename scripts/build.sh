@@ -33,8 +33,9 @@ echo "==> Cleaning ${DIST_DIR}"
 rm -rf "${DIST_DIR}"
 mkdir -p "${STAGE_DIR}"
 
-echo "==> Copying manifest.json, src/, public/"
+echo "==> Copying manifest.json, LICENSE, src/, public/"
 cp manifest.json "${STAGE_DIR}/"
+cp LICENSE "${STAGE_DIR}/"
 cp -R src "${STAGE_DIR}/src"
 cp -R public "${STAGE_DIR}/public"
 
