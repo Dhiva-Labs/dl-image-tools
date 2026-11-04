@@ -49,6 +49,11 @@ a Web Worker, so the UI never freezes). The only thing ever written to
 _Coming soon — DL Image Tools is pending Chrome Web Store review._
 `[Chrome Web Store link placeholder]`
 
+### From Firefox Add-ons
+
+DL Image Tools is submitted to addons.mozilla.org and pending review
+(Firefox 140 or later).
+
 ### Load unpacked (development / early access)
 
 1. Clone or download this repository.
@@ -72,7 +77,8 @@ npm test
 # the extension into Chrome (uses dev/chrome-shim.js to stub the chrome.* APIs)
 open dev/dev.html   # or just open the file in a browser
 
-# Produce a distributable build (dist/dl-image-tools/ + a Web Store zip)
+# Produce distributable builds: dist/dl-image-tools/ + a Web Store zip, and
+# dist/dl-image-tools-firefox/ + an addons.mozilla.org zip
 npm run build        # -> scripts/build.sh
 ```
 
