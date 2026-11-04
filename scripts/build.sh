@@ -70,6 +70,36 @@ rm -f "${DIST_DIR}/${ZIP_NAME}"
 ZIP_PATH="${DIST_DIR}/${ZIP_NAME}"
 ZIP_SIZE="$(du -h "${ZIP_PATH}" | cut -f1)"
 
+echo "==> Staging Firefox build"
+# Firefox MV3 runs the background as an event page (background.scripts), needs
+# a gecko id, and AMO requires data_collection_permissions (Firefox 140+).
+FF_STAGE_DIR="${DIST_DIR}/${PKG_NAME}-firefox"
+cp -R "${STAGE_DIR}" "${FF_STAGE_DIR}"
+python3 - "${FF_STAGE_DIR}/manifest.json" <<'PY'
+import json, sys
+path = sys.argv[1]
+m = json.load(open(path))
+m["description"] = m["description"].replace("directly in Chrome", "right in your browser")
+m.pop("minimum_chrome_version", None)
+m["background"] = {"scripts": [m["background"]["service_worker"]], "type": "module"}
+m["browser_specific_settings"] = {
+    "gecko": {
+        "id": "dl-image-tools@dhiva-labs",
+        "strict_min_version": "140.0",
+        "data_collection_permissions": {"required": ["none"]},
+    }
+}
+json.dump(m, open(path, "w"), indent=2)
+open(path, "a").write("\n")
+PY
+FF_ZIP_NAME="${PKG_NAME}-firefox-v${VERSION}.zip"
+(
+  cd "${FF_STAGE_DIR}"
+  zip -r -X "../${FF_ZIP_NAME}" . -x '*.DS_Store' >/dev/null
+)
+FF_ZIP_PATH="${DIST_DIR}/${FF_ZIP_NAME}"
+
 echo "==> Build complete"
 echo "    Unpacked: ${STAGE_DIR}"
 echo "    Archive:  ${ZIP_PATH} (${ZIP_SIZE})"
+echo "    Firefox:  ${FF_ZIP_PATH} ($(du -h "${FF_ZIP_PATH}" | cut -f1))"
