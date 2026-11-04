@@ -163,4 +163,4 @@ Monthly sponsors at $10 and up are listed here:
 
 ## License
 
-MIT. See the `license` field in `package.json`.
+MIT. See [LICENSE](LICENSE).

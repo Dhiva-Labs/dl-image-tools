@@ -1,6 +1,6 @@
 # Privacy Policy — DL Image Tools
 
-**Last updated:** 2026-08-12
+**Last updated:** 2026-11-05
 
 DL Image Tools ("the extension") is developed by DhivaLabs. This policy
 explains what the extension does — and, more importantly, does not do —
@@ -21,10 +21,10 @@ analytics, and does not have user accounts.**
 - Performs that processing entirely in-browser using the Canvas /
   OffscreenCanvas APIs, optionally inside a Web Worker so the UI stays
   responsive.
-- Lets you download the resulting file(s) using Chrome's native download
+- Lets you download the resulting file(s) using the browser's native download
   mechanism.
 - Stores your theme preference (light / dark / system) locally using
-  `chrome.storage.local`.
+  the extension storage API (`storage.local`).
 - Adds a right-click context menu on images ("Download image" and "Open in
   DL Image Tools") to let you act on any image on a web page.
 
@@ -43,7 +43,7 @@ analytics, and does not have user accounts.**
 
 ## Data stored locally
 
-The only data DL Image Tools persists is stored via `chrome.storage.local`
+The only data DL Image Tools persists is stored via the extension storage API (`storage.local`)
 (or `localStorage` when previewed outside the extension shell) and never
 leaves your machine:
 
@@ -57,9 +57,9 @@ No image, filename, or file content is ever written to this storage.
 ## Context menu downloads
 
 When you use "Download image" from the right-click menu, the extension
-calls Chrome's own `chrome.downloads` API with the image's URL directly —
+calls the browser's own `downloads` API with the image's URL directly —
 the image is downloaded straight from the site that served it, through
-Chrome's downloader. DL Image Tools does not fetch, proxy, or see the
+the browser's downloader. DL Image Tools does not fetch, proxy, or see the
 bytes of that download itself.
 
 When you use "Open in DL Image Tools", the extension opens its popup UI as
@@ -83,4 +83,6 @@ new extension release with an updated "Last updated" date above.
 ## Contact
 
 Questions about this policy can be directed to DhivaLabs via the support
-contact listed on the extension's Chrome Web Store listing.
+contact listed on the extension's Chrome Web Store or Firefox Add-ons
+listing, or by opening an issue at
+https://github.com/Dhiva-Labs/dl-image-tools/issues.
