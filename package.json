@@ -1,6 +1,6 @@
 {
   "name": "dl-image-tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "DL Image Tools - private, local image utilities for Chrome",
   "private": true,
   "type": "module",
