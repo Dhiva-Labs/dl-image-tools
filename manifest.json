@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "DL Image Tools",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Compress, resize, convert, crop and optimize images directly in Chrome. Fast. Private. No uploads.",
   "author": "DhivaLabs",
   "minimum_chrome_version": "110",
