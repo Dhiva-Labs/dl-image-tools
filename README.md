@@ -2,6 +2,8 @@
 
 A privacy-first, fully-local image toolbox for Chrome, by **DhivaLabs**.
 
+**Documentation:** step-by-step guides at [learn.dhivalabs.com](https://learn.dhivalabs.com/apps/dl-image-tools/): [install](https://learn.dhivalabs.com/apps/dl-image-tools/install) · [beginner guide](https://learn.dhivalabs.com/apps/dl-image-tools/getting-started) · [troubleshooting](https://learn.dhivalabs.com/apps/dl-image-tools/faq). New to the topic? Try the [Images and media](https://learn.dhivalabs.com/tracks/media/) learning track.
+
 Compress, resize, convert, crop, rotate, flip, and inspect images — right in
 your browser, with nothing ever leaving your device.
 
