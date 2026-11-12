@@ -48,12 +48,11 @@ a Web Worker, so the UI never freezes). The only thing ever written to
 
 ### From the Chrome Web Store
 
-_Coming soon — DL Image Tools is pending Chrome Web Store review._
-`[Chrome Web Store link placeholder]`
+Install [DL Image Tools from the Chrome Web Store](https://chromewebstore.google.com/detail/dl-image-tools/ighlhdddbockbcooddmeajncpgihlcob).
 
 ### From Firefox Add-ons
 
-DL Image Tools is submitted to addons.mozilla.org and pending review
+Install [DL Image Tools from Firefox Add-ons](https://addons.mozilla.org/firefox/addon/dl-image-tools/)
 (Firefox 140 or later).
 
 ### Load unpacked (development / early access)
